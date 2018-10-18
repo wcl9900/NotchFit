@@ -6,7 +6,7 @@
     repositories {
         jcenter()
     }
-    compile 'com.wcl.notchfit:library:1.0'
+    compile 'com.wcl.notchfit:notchfit:1.0'
     
 # 使用方式
     NotchFitUtils.fit(activity);
