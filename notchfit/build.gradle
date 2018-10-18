@@ -35,7 +35,7 @@ ext{
     gitUrl = 'https://github.com/wcl9900/NotchFit.git' // project git
 
     groupId = "com.wcl.notchfit" //组名称
-    artifactId = "library"
+    artifactId = "notchfit"
 
     repository = "maven"//仓库名称
     userOrgName = "wangchunlong"//组织名称
