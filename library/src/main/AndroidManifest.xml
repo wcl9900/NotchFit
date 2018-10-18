@@ -1,0 +1,8 @@
+<manifest package="com.wcl.notchfit">
+    <application>
+        <!-- 华为手机支持全面屏配置 -->
+        <!-- <meta-data android:name="android.notch_support" android:value="true"/> -->
+        <!-- 小米支持全面屏配置 -->
+        <!--<meta-data android:name="notch.config" android:value="portrait|landscape"/>-->
+    </application>
+</manifest>
