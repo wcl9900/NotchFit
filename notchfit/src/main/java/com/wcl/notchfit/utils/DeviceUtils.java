@@ -1,11 +1,11 @@
-package com.wcl.notchfit;
+package com.wcl.notchfit.utils;
 
 import android.os.Build;
 
 /**
  * 设备工具类
  */
-final class DeviceUtils {
+public final class DeviceUtils {
 
     /**
      * Return the manufacturer of the product/hardware.

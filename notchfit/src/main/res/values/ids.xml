@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="custom_notch_view" type="id"/>
+    <item name="notch_statusbarutil_translucent_view" type="id"/>
 </resources>

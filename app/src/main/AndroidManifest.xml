@@ -6,21 +6,41 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!-- 华为手机支持全面屏配置 -->
-         <meta-data android:name="android.notch_support" android:value="true"/>
-        <!-- 小米支持全面屏配置 -->
-        <meta-data android:name="notch.config" android:value="portrait|landscape"/>
 
-        <activity android:name=".MainActivity">
+        <!-- 华为手机支持全面屏配置 -->
+        <!-- <meta-data -->
+        <!-- android:name="android.notch_support" -->
+        <!-- android:value="true" /> -->
+        <!-- 小米支持全面屏配置 -->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NotchFullScreenUnUseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NotchFullScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NotchTranslucentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NotchTranslucentUnUseActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".NotchCustomActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

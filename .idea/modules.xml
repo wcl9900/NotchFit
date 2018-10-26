@@ -4,7 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NotchFit.iml" filepath="$PROJECT_DIR$/NotchFit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/notchfit/library.iml" filepath="$PROJECT_DIR$/notchfit/library.iml" />
+      <module fileurl="file://D:\Work\android-studio-workspace\Library\NotchFit\notchfit\library.iml" filepath="D:\Work\android-studio-workspace\Library\NotchFit\notchfit\library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/notchfit/notchfit.iml" filepath="$PROJECT_DIR$/notchfit/notchfit.iml" />
     </modules>
   </component>
 </project>
