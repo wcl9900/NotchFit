@@ -21,21 +21,21 @@ public abstract class AbstractNotch implements INotch{
     private NotchProperty notchProperty;
 
     @Override
-    public void applyNotch(Activity activity, boolean support) {
+    public void applyNotch(Activity activity, boolean applyEnable) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
-            if(support) {
-                supportNotch_P(activity);
+            if(applyEnable) {
+                applyNotch_P(activity);
             }
             else {
-                nonSupportNotch_P(activity);
+                disApplyNotch_P(activity);
             }
         }
         else {
-            if(support){
-                supportNotch_O(activity);
+            if(applyEnable){
+                applyNotch_O(activity);
             }
             else {
-                nonSupportNotch_O(activity);
+                disApplyNotch_O(activity);
             }
         }
     }
@@ -44,18 +44,18 @@ public abstract class AbstractNotch implements INotch{
      * O版本及以前版本开启支持刘海屏，只负责不同设备厂商刘海区域使用开关的启动
      * @param activity
      */
-    protected void supportNotch_O(Activity activity){}
+    protected void applyNotch_O(Activity activity){}
     /**
      * O版本及以前版本关闭支持刘海屏，只负责不同设备厂商刘海区域使用开关的关闭
      * @param activity
      */
-    protected void nonSupportNotch_O(Activity activity){}
+    protected void disApplyNotch_O(Activity activity){}
 
     /**
      *P版本及以后版本通过设定layoutInDisplayCutoutMode参数类型开启使用刘海区域
      * @param activity
      */
-    protected void supportNotch_P(Activity activity){
+    protected void applyNotch_P(Activity activity){
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
         lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         activity.getWindow().setAttributes(lp);
@@ -64,7 +64,7 @@ public abstract class AbstractNotch implements INotch{
      *P版本及以后版本设定layoutInDisplayCutoutMode参数类型关闭使用刘海区域
      * @param activity
      */
-    protected void nonSupportNotch_P(Activity activity){
+    protected void disApplyNotch_P(Activity activity){
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
         lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
         activity.getWindow().setAttributes(lp);

@@ -24,7 +24,7 @@ public class HuaweiNotch extends AbstractNotch {
     public static final int FLAG_NOTCH_SUPPORT=0x00010000;
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
-    protected void supportNotch_O(Activity activity) {
+    protected void applyNotch_O(Activity activity) {
         Window window = activity.getWindow();
         WindowManager.LayoutParams layoutParams = window.getAttributes();
         try {
@@ -43,7 +43,7 @@ public class HuaweiNotch extends AbstractNotch {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
-    protected void nonSupportNotch_O(Activity activity) {
+    protected void disApplyNotch_O(Activity activity) {
         Window window = activity.getWindow();
         WindowManager.LayoutParams layoutParams = window.getAttributes();
         try {
@@ -72,18 +72,6 @@ public class HuaweiNotch extends AbstractNotch {
             LogUtils.e("hasNotchAtHuawei ClassNotFoundException");
             return false;
         }
-
-//        String notchSupportKey = "android.notch_support";
-//        Boolean activityMetaDataSupportEnable = MetaDataUtils.getActivityMetaData(activity, notchSupportKey);
-//        if(activityMetaDataSupportEnable == null){
-//            Boolean applicationMetaDataSupportEnable = MetaDataUtils.getApplicationMetaData(activity, notchSupportKey);
-//            if(applicationMetaDataSupportEnable == null || !applicationMetaDataSupportEnable){
-//                return false;
-//            }
-//        }
-//        else if(!activityMetaDataSupportEnable){
-//            return false;
-//        }
 
         //判断刘海屏系统设置开关是否打开“隐藏显示区域”
         String DISPLAY_NOTCH_STATUS = "display_notch_status";

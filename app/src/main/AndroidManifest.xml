@@ -7,6 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:maxAspectRatio="2.4"
         android:theme="@style/AppTheme">
 
         <!-- 华为手机支持全面屏配置 -->
@@ -14,9 +15,9 @@
         <!-- android:name="android.notch_support" -->
         <!-- android:value="true" /> -->
         <!-- 小米支持全面屏配置 -->
-        <meta-data
-            android:name="notch.config"
-            android:value="portrait|landscape" />
+        <!--<meta-data-->
+            <!--android:name="notch.config"-->
+            <!--android:value="portrait|landscape" />-->
 
         <activity
             android:name=".MainActivity"

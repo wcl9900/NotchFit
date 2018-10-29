@@ -7,7 +7,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.wcl.notchfit.args.NotchProperty;
 import com.wcl.notchfit.args.NotchScreenType;
@@ -21,6 +20,14 @@ import com.wcl.notchfit.utils.ActivityUtils;
  */
 
 public class NotchFit {
+    /**
+     * 设定Activity窗口显示模式{@link NotchScreenType}，使用并延伸布局至刘海区域
+     * @param activity
+     * @param notchScreenType Activity显示模式
+     */
+    public static void fit(Activity activity, NotchScreenType notchScreenType){
+        fit(activity, notchScreenType, null);
+    }
     /**
      * 通过设定Activity活动窗口显示样式，使用并延伸布局至刘海区域
      * ，便可通过回调函数获取刘海参数用来给布局做适配
@@ -62,8 +69,6 @@ public class NotchFit {
         NotchFactory.getInstance().getNotch().obtainNotch(activity, new OnNotchCallBack() {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
-                Toast.makeText(activity, notchProperty.toString(), Toast.LENGTH_LONG).show();
-
                 if(notchProperty.isNotchEnable() && notchProperty.getNotchHeight() != 0){
                     ViewGroup windowRootView = (ViewGroup) activity.getWindow().getDecorView().getRootView();
                     int childCount = windowRootView.getChildCount();

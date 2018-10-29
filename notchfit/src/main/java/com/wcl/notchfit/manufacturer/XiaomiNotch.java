@@ -21,7 +21,7 @@ public class XiaomiNotch extends AbstractNotch {
 
     int flag = 0x00000100 | 0x00000200 | 0x00000400;
     @Override
-    protected void supportNotch_O(Activity activity) {
+    protected void applyNotch_O(Activity activity) {
         try {
             Method method = Window.class.getMethod("addExtraFlags",
                     int.class);
@@ -32,7 +32,7 @@ public class XiaomiNotch extends AbstractNotch {
     }
 
     @Override
-    protected void nonSupportNotch_O(Activity activity) {
+    protected void disApplyNotch_O(Activity activity) {
         try {
             Method method = Window.class.getMethod("clearExtraFlags ",
                     int.class);
@@ -63,19 +63,6 @@ public class XiaomiNotch extends AbstractNotch {
         if(isNotchSettingClose){
             return false;
         }
-
-//        //AndroidManifests中是否配置支持刘海屏显示
-//        String notchConfigKey = "notch.config";
-//        String activityMetaData = getActivityMetaData(activity, notchConfigKey);
-//        if(TextUtils.isEmpty(activityMetaData)){
-//            String applicationMetaData = getApplicationMetaData(activity, notchConfigKey);
-//            if(TextUtils.isEmpty(applicationMetaData) || applicationMetaData.contains("none")) {
-//                return false;
-//            }
-//        }
-//        else if(activityMetaData.contains("none")){
-//            return false;
-//        }
 
         return true;
     }

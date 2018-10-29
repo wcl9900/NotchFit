@@ -18,7 +18,6 @@ public class ActivityUtils {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void setFullScreen(Activity activity){
-        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
