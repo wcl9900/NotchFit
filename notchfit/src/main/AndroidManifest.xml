@@ -1,7 +1,5 @@
-<manifest package="com.wcl.notchfit"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <application
-        android:resizeableActivity="true"  >
+<manifest package="com.wcl.notchfit">
+    <application >
         <!--<meta-data android:name="android.max_aspect" android:value="2.4" />-->
         <!-- 华为手机支持全面屏配置 -->
         <!-- <meta-data android:name="android.notch_support" android:value="true"/> -->
