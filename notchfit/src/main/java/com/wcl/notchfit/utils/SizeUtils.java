@@ -1,6 +1,10 @@
 package com.wcl.notchfit.utils;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Point;
+import android.os.Build;
+import android.view.WindowManager;
 
 /**
  * 尺寸工具类
@@ -32,4 +36,21 @@ public class SizeUtils {
         return result;
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static int getScreenWidth(Context context){
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        Point pointSize = new Point();
+        wm.getDefaultDisplay().getRealSize(pointSize);
+        return pointSize.x;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static int getScreenHeight(Context context) {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        Point pointSize = new Point();
+        wm.getDefaultDisplay().getRealSize(pointSize);
+        return pointSize.y;
+    }
 }

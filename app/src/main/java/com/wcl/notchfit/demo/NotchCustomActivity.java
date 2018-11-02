@@ -3,7 +3,6 @@ package com.wcl.notchfit.demo;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.wcl.notchfit.NotchFit;
 import com.wcl.notchfit.args.NotchProperty;
@@ -23,7 +22,6 @@ public class NotchCustomActivity extends NotchBaseActivity {
         NotchFit.fit(this, NotchScreenType.CUSTOM, new OnNotchCallBack() {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
-                Toast.makeText(getApplication(), notchProperty.toString(), Toast.LENGTH_LONG).show();
                 if(notchProperty.isNotchEnable()){
                     ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) listParent.getLayoutParams();
                     marginLayoutParams.topMargin = notchProperty.getNotchHeight();

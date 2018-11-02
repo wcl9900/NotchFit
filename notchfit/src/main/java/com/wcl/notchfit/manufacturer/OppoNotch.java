@@ -3,6 +3,7 @@ package com.wcl.notchfit.manufacturer;
 import android.app.Activity;
 
 import com.wcl.notchfit.core.AbstractNotch;
+import com.wcl.notchfit.utils.LogUtils;
 
 /**
  * OPPO手机刘海屏
@@ -12,7 +13,13 @@ import com.wcl.notchfit.core.AbstractNotch;
 public class OppoNotch extends AbstractNotch {
     @Override
     protected boolean isNotchEnable_O(Activity activity) {
-        return activity.getPackageManager().hasSystemFeature("com.oppo.feature.screen.heteromorphism");
+        return isHardwareNotchEnable(activity);
+    }
+
+    private boolean isHardwareNotchEnable(Activity activity) {
+        boolean isNotchEnable = activity.getPackageManager().hasSystemFeature("com.oppo.feature.screen.heteromorphism");
+        LogUtils.i("OPPO hardware enable: "+isNotchEnable);
+        return isNotchEnable;
     }
 
     /**
@@ -24,7 +31,7 @@ public class OppoNotch extends AbstractNotch {
     protected int[] getNotchSize_O(Activity activity) {
         int[] notchSize = new int[]{
                 324, //刘海宽度
-                80 //刘海高度
+                80 //刘海高度(精确)
         };
         return notchSize;
     }

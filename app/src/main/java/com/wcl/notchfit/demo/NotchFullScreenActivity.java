@@ -2,7 +2,6 @@ package com.wcl.notchfit.demo;
 
 import android.os.Bundle;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.wcl.notchfit.NotchFit;
 import com.wcl.notchfit.args.NotchProperty;
@@ -17,12 +16,10 @@ public class NotchFullScreenActivity extends NotchBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         final ViewGroup listParent = findViewById(R.id.ll_parent);
         NotchFit.fit(this, NotchScreenType.FULL_SCREEN, new OnNotchCallBack() {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
-                Toast.makeText(getApplication(), notchProperty.toString(), Toast.LENGTH_LONG).show();
                 if(notchProperty.isNotchEnable()){
                     ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) listParent.getLayoutParams();
                     marginLayoutParams.topMargin = notchProperty.getNotchHeight();

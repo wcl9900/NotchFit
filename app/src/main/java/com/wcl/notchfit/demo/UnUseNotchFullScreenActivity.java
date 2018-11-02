@@ -8,7 +8,7 @@ import com.wcl.notchfit.utils.ActivityUtils;
 /**
  * 全屏不适配刘海
  */
-public class NotchFullScreenUnUseActivity extends NotchBaseActivity {
+public class UnUseNotchFullScreenActivity extends NotchBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

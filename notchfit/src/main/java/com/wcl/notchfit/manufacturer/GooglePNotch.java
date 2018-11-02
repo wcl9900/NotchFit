@@ -9,7 +9,8 @@ import com.wcl.notchfit.core.AbstractNotch;
  * Created by wangchunlong on 2018/10/24.
  */
 
-public class GoogleNotch extends AbstractNotch {
+public class GooglePNotch extends AbstractNotch {
+
     @Override
     protected boolean isNotchEnable_O(Activity activity) {
         return false;

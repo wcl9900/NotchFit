@@ -2,7 +2,7 @@ package com.wcl.notchfit.core;
 
 import android.text.TextUtils;
 
-import com.wcl.notchfit.manufacturer.GoogleNotch;
+import com.wcl.notchfit.manufacturer.GooglePNotch;
 import com.wcl.notchfit.manufacturer.HuaweiNotch;
 import com.wcl.notchfit.manufacturer.OppoNotch;
 import com.wcl.notchfit.manufacturer.SmartisanNotch;
@@ -50,7 +50,7 @@ public class NotchFactory {
             notch = new SmartisanNotch();
         }
         else {
-            notch = new GoogleNotch();
+            notch = new GooglePNotch();
         }
         return notch;
     }

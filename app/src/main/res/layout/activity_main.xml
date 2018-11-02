@@ -1,46 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="适配刘海区域"/>
+        android:text="适配刘海" />
+
     <Button
         android:id="@+id/btn_notch_translucent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="沉浸式适配"/>
+        android:text="沉浸式适配" />
+
     <Button
         android:id="@+id/btn_notch_fullscreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="全屏适配"/>
+        android:text="全屏适配" />
+
     <Button
         android:id="@+id/btn_notch_custom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="自定义屏幕显示适配"/>
+        android:text="自定义屏幕显示适配" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000"/>
+        android:background="#000" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="不适配刘海，延伸至刘海区域的内容使用黑条填充"/>
+        android:text="不适配刘海，黑条填充" />
+
     <Button
         android:id="@+id/btn_notch_translucent_unuse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="沉浸模式不适配"/>
+        android:text="沉浸模式不适配" />
+
     <Button
         android:id="@+id/btn_notch_fullscreen_unuse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="全屏模式不适配"/>
+        android:text="全屏模式不适配" />
 </LinearLayout>

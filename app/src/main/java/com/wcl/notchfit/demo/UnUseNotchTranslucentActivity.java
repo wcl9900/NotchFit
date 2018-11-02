@@ -8,7 +8,7 @@ import com.wcl.notchfit.utils.ActivityUtils;
 /**
  * 沉浸式不适配刘海
  */
-public class NotchTranslucentUnUseActivity extends NotchBaseActivity {
+public class UnUseNotchTranslucentActivity extends NotchBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

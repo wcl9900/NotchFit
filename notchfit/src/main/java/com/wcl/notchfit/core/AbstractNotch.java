@@ -8,7 +8,9 @@ import android.view.DisplayCutout;
 import android.view.WindowManager;
 
 import com.wcl.notchfit.args.NotchProperty;
+import com.wcl.notchfit.config.NotchConfig;
 import com.wcl.notchfit.utils.DeviceUtils;
+import com.wcl.notchfit.utils.LogUtils;
 
 import java.util.List;
 
@@ -94,31 +96,40 @@ public abstract class AbstractNotch implements INotch{
                 }
                 else {
                     notchProperty.setNotchEnable(isNotchEnable_O(activity));
+                    LogUtils.i(notchProperty.getManufacturer()+" O notch enable: "+notchProperty.isNotchEnable());
                     if(notchProperty.isNotchEnable()) {
                         notchSize = getNotchSize_O(activity);
+                        if(notchSize != null && notchSize.length > 1) {
+                            LogUtils.i(notchProperty.getManufacturer() + " O notch size: " + "width> " + notchSize[0] + " height> " + notchSize[1]);
+                        }
                     }
                 }
 
                 if(notchProperty.isNotchEnable()){
                     if(notchSize == null || notchSize.length != 2) {
-                        throw new RuntimeException("刘海屏尺寸数据获取有误");
+                        throw new RuntimeException(notchProperty.getManufacturer()+" notch args get error");
                     }
                     notchProperty.setNotchWidth(notchSize[0]);
                     notchProperty.setNotchHeight(notchSize[1]);
                 }
+
                 if(onNotchCallBack != null){
                     onNotchCallBack.onNotchReady(notchProperty);
+                }
+                if(NotchConfig.NotchPropertyListener != null){
+                    NotchConfig.NotchPropertyListener.onNotchProperty(notchProperty);
                 }
             }
         });
     }
 
     /**
-     * 判断获取O版本及以前版本的设备是否显示刘海屏
+     * 判断获取O版本的设备是否显示刘海屏
      * @param activity
      * @return
      */
     protected abstract boolean isNotchEnable_O(Activity activity);
+
     /**
      * 获取O版本及以前版本的非谷歌标准的刘海屏宽高尺寸
      * @param activity
@@ -133,7 +144,13 @@ public abstract class AbstractNotch implements INotch{
      */
     @TargetApi(Build.VERSION_CODES.P)
     protected boolean isNotchEnable_P(Activity activity){
-        return isNotchEnableDefault_P(activity);
+        DisplayCutout displayCutout = activity.getWindow().getDecorView().getRootWindowInsets().getDisplayCutout();
+        if(displayCutout == null || displayCutout.getBoundingRects() == null || displayCutout.getBoundingRects().size() == 0){
+            LogUtils.i(notchProperty.getManufacturer()+" P notch enable: false");
+            return false;
+        }
+        LogUtils.i(notchProperty.getManufacturer()+" P notch enable: true");
+        return true;
     }
     /**
      * 获取谷歌标准P版本及以上的刘海屏宽高尺寸
@@ -142,30 +159,6 @@ public abstract class AbstractNotch implements INotch{
      */
     @TargetApi(Build.VERSION_CODES.P)
     protected int[] getNotchSize_P(Activity activity){
-        return getNotchSizeDefault_P(activity);
-    }
-
-    /**
-     * P版本标准api判断设备是否显示刘海屏
-     * @param activity
-     * @return
-     */
-    @TargetApi(Build.VERSION_CODES.P)
-    private boolean isNotchEnableDefault_P(Activity activity){
-        DisplayCutout displayCutout = activity.getWindow().getDecorView().getRootWindowInsets().getDisplayCutout();
-        if(displayCutout == null || displayCutout.getBoundingRects() == null || displayCutout.getBoundingRects().size() == 0){
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 获取google标准P版本及以上刘海屏尺寸
-     * @param activity
-     * @return
-     */
-    @TargetApi(Build.VERSION_CODES.P)
-    private int[] getNotchSizeDefault_P(Activity activity){
         int[] notchSize = new int[]{0,0};
         DisplayCutout displayCutout = activity.getWindow().getDecorView().getRootWindowInsets().getDisplayCutout();
         List<Rect> boundingRects = displayCutout.getBoundingRects();
@@ -173,6 +166,7 @@ public abstract class AbstractNotch implements INotch{
             Rect rect = boundingRects.get(0);
             notchSize[0] = rect.width();
             notchSize[1] = rect.height();
+            LogUtils.i(notchProperty.getManufacturer() + " O notch size: " + "width> " + notchSize[0] + " height>" + notchSize[1]);
         }
         return notchSize;
     }

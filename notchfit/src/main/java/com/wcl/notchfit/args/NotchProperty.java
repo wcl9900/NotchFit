@@ -61,9 +61,9 @@ public class NotchProperty {
 
     @Override
     public String toString() {
-        return "notchEnable: "+isNotchEnable()+"\n"
-                +"notchWidth: "+getNotchWidth() + "\n"
-                +"notchHeight: " + getNotchHeight() + "\n"
+        return "notchEnable: "+isNotchEnable()+" "
+                +"notchWidth: "+getNotchWidth() + " "
+                +"notchHeight: " + getNotchHeight() + " "
                 +"manufacturer: "+ getManufacturer();
     }
 }

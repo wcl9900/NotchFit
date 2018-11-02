@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/img"/>
+        android:src="@drawable/img"
+        android:visibility="visible"/>
     <LinearLayout
         android:id="@+id/ll_parent"
         android:orientation="vertical"

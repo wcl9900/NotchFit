@@ -22,6 +22,22 @@ public class ActivityUtils {
     }
 
     /**
+     * 判断是否是全屏
+     * @param activity
+     * @return
+     */
+    public static boolean isFullScreen(Activity activity){
+        if ( (activity.getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
+            return true;
+        }
+       if((activity.getWindow().getDecorView().getSystemUiVisibility() & (View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN))
+                == (View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)){
+            return true;
+       }
+       return false;
+    }
+    /**
      * 沉浸式状态栏
      *
      * @param activity 需要设置的activity
