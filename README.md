@@ -9,7 +9,7 @@
     compile 'com.wcl.notchfit:notchfit:1.0'
     
 # 使用方式
-    1.沉浸式适配
+   1.沉浸式适配
    ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_translucent.jpg)
       
       NotchFit.fit(this, NotchScreenType.TRANSLUCENT, new OnNotchCallBack() {
@@ -23,7 +23,7 @@
             }
        });
        
-    2.全屏适配   
+   2.全屏适配   
    ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_fullscreen.jpg)
       
       NotchFit.fit(this, NotchScreenType.FULL_SCREEN, new OnNotchCallBack() {
@@ -37,7 +37,7 @@
                   }
               });
               
-     3.黑条填充
+   3.黑条填充
    ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_black.jpg)
      
      NotchFit.fitUnUse(this);
