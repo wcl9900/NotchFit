@@ -9,11 +9,37 @@
     compile 'com.wcl.notchfit:notchfit:1.0'
     
 # 使用方式
-    NotchFit.fit(activity, NotchScreenType.TRANSLUCENT, new OnNotchCallBack() {
-                @Override
-                public void onNotchReady(NotchProperty notchProperty) {
-                    //刘海参数回调
+    1.沉浸式适配
+     ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_translucent.jpg)
+      
+      NotchFit.fit(this, NotchScreenType.TRANSLUCENT, new OnNotchCallBack() {
+            @Override
+            public void onNotchReady(NotchProperty notchProperty) {
+                if(notchProperty.isNotchEnable()){
+                    ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) listParent.getLayoutParams();
+                    marginLayoutParams.topMargin = notchProperty.getNotchHeight();
+                    listParent.requestLayout();
                 }
-            });
-            
+            }
+       });
+       
+    2.全屏适配   
+     ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_fullscreen.jpg)
+      
+      NotchFit.fit(this, NotchScreenType.FULL_SCREEN, new OnNotchCallBack() {
+                  @Override
+                  public void onNotchReady(NotchProperty notchProperty) {
+                      if(notchProperty.isNotchEnable()){
+                          ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) listParent.getLayoutParams();
+                          marginLayoutParams.topMargin = notchProperty.getNotchHeight();
+                          listParent.requestLayout();
+                      }
+                  }
+              });
+              
+     3.黑条填充
+     ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_black.jpg)
+     
+     NotchFit.fitUnUse(this);
+     
     更多使用方式请查看demo
