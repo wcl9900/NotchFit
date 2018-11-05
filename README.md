@@ -48,7 +48,8 @@
               });
         
               
-   3.黑条填充
+   3.黑条填充。
+   应用场景：如果不想对刘海布局进行具体适配，可统一通过此方法进行刘海区域黑条填充
    
    ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_black.jpg)
      
