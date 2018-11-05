@@ -16,6 +16,7 @@ public class UnUseNotchTranslucentActivity extends NotchBaseActivity {
 
         //开启沉浸模式
         ActivityUtils.setTranslucent(this);
+//        StatusBarUtil.setTranslucent(this, 0);
 
         NotchFit.fitUnUse(this);
     }

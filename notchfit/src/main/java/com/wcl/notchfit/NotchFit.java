@@ -14,7 +14,6 @@ import com.wcl.notchfit.core.NotchFactory;
 import com.wcl.notchfit.core.OnNotchCallBack;
 import com.wcl.notchfit.utils.ActivityUtils;
 import com.wcl.notchfit.utils.LogUtils;
-import com.wcl.notchfit.utils.SizeUtils;
 
 /**
  * 刘海屏适配
@@ -51,14 +50,16 @@ public class NotchFit {
         NotchFactory.getInstance().getNotch().obtainNotch(activity, new OnNotchCallBack() {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
-                ViewGroup windowRootView = (ViewGroup) activity.getWindow().getDecorView().getRootView();
                 if(notchProperty.isNotchEnable()){
-                    if(ActivityUtils.isFullScreen(activity)){//如果是全屏显示的话判断设备是否自动完成了适配
-                        if(windowRootView.getHeight() <= SizeUtils.getScreenHeight(activity) - notchProperty.getNotchHeight()){
+                    ViewGroup decorContentParentView = (ViewGroup)ActivityUtils.getDecorContentParentView(activity);
+                    if(decorContentParentView != null) {
+                        int[] decorContentParentViewLocation = new int[2];
+                        decorContentParentView.getLocationOnScreen(decorContentParentViewLocation);
+                        if (decorContentParentViewLocation[1] >= notchProperty.getNotchHeight()) {//判断设备是否自动完成了适配
                             notchProperty.setNotchEnable(false);
                             notchProperty.setNotchWidth(0);
                             notchProperty.setNotchHeight(0);
-                            LogUtils.i(notchProperty.getManufacturer()+ " fit notch finish by system(系统自动完成刘海适配)");
+                            LogUtils.i(notchProperty.getManufacturer() + " fit notch finish by system(系统自动完成刘海适配)");
                         }
                     }
                 }
@@ -70,8 +71,8 @@ public class NotchFit {
     }
 
     /**
-     * 对有延伸到刘海区域的布局活动窗口，可使窗口布局不使用刘海区域，处理刘海区域用黑条填充
-     * @param activity 需要刘海适配的活动页
+     * 对有UI布局延伸到刘海区域的活动窗口，可使窗口布局不使用刘海区域，用黑条填充刘海区域
+     * @param activity 需要刘海适配的活动窗口
      */
     public static void fitUnUse(final Activity activity){
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -81,27 +82,24 @@ public class NotchFit {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
                 if(notchProperty.isNotchEnable() && notchProperty.getNotchHeight() != 0){
-                    ViewGroup windowRootView = (ViewGroup) activity.getWindow().getDecorView().getRootView();
+                    //已经适配过的无需再适配
+                    if(activity.findViewById(R.id.custom_notch_view) != null) return;
 
-                    int childCount = windowRootView.getChildCount();
-                    for (int index = 0; index < childCount; index++) {
-                        final View childView = windowRootView.getChildAt(index);
+                    ViewGroup decorContentParentView = (ViewGroup)ActivityUtils.getDecorContentParentView(activity);
+                    if(decorContentParentView == null) return;
+                    ((ViewGroup.MarginLayoutParams)decorContentParentView.getLayoutParams()).topMargin = notchProperty.getNotchHeight();
 
-                        ViewGroup.MarginLayoutParams childLayoutParams = (ViewGroup.MarginLayoutParams) childView.getLayoutParams();
-                        childLayoutParams.height = windowRootView.getHeight() - notchProperty.getNotchHeight();
-                        if(childLayoutParams instanceof FrameLayout.LayoutParams){
-                            ((FrameLayout.LayoutParams)childLayoutParams).gravity = Gravity.BOTTOM;
-                        }
-                        childView.setLayoutParams(childLayoutParams);
+                    ViewGroup windowRootView = (ViewGroup) decorContentParentView.getParent();
+                    if(windowRootView != null && windowRootView instanceof FrameLayout) {
+                        View notchView = new View(decorContentParentView.getContext());
+                        notchView.setId(R.id.custom_notch_view);
+                        notchView.setBackgroundColor(Color.BLACK);
+                        FrameLayout.LayoutParams notchViewLayoutParams =
+                                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, notchProperty.getNotchHeight());
+                        notchViewLayoutParams.gravity = Gravity.TOP;
+                        windowRootView.addView(notchView, notchViewLayoutParams);
+                        LogUtils.i(notchProperty.getManufacturer() + " notch fit finish by app (程序完成适配) ");
                     }
-
-                    View notchView = new View(windowRootView.getContext());
-                    notchView.setBackgroundColor(Color.BLACK);
-                    FrameLayout.LayoutParams notchViewLayoutParams =
-                            new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, notchProperty.getNotchHeight());
-                    notchViewLayoutParams.gravity = Gravity.TOP;
-                    windowRootView.addView(notchView, notchViewLayoutParams);
-                    LogUtils.i(notchProperty.getManufacturer() + " notch fit finish by app (程序完成适配) ");
                 }
             }
         });

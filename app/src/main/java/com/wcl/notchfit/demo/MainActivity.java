@@ -3,12 +3,15 @@ package com.wcl.notchfit.demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.wcl.notchfit.args.NotchProperty;
 import com.wcl.notchfit.config.NotchConfig;
 import com.wcl.notchfit.config.OnNotchPropertyListener;
 import com.wcl.notchfit.utils.LogUtils;
+
+import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -30,6 +33,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.btn_notch_translucent_unuse).setOnClickListener(this);
         findViewById(R.id.btn_notch_fullscreen_unuse).setOnClickListener(this);
+
+        try {
+            Class<?> androidId = Class.forName(getPackageName() + ".R$id");
+            Field decor_content_parent = androidId.getField("decor_content_parent");
+            decor_content_parent.setAccessible(true);
+            int resId = (int) decor_content_parent.get(null);
+            Log.i("aa", resId+"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

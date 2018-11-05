@@ -30,7 +30,7 @@ dependencies {
 
 
 ext{
-    versionName = "1.0"//版本号
+    versionName = "1.1"//版本号
     siteUrl = 'https://github.com/wcl9900/NotchFit'    // project homepage
     gitUrl = 'https://github.com/wcl9900/NotchFit.git' // project git
 
@@ -41,7 +41,7 @@ ext{
     userOrgName = "wangchunlong"//组织名称
 
     //库描述介绍
-    descRep = "简易刘海屏适配"
+    descRep = "智能刘海屏适配"
     //库版本信息描述
     descVersion = ""
 }
