@@ -6,9 +6,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by wangchunlong on 2018/10/24.
@@ -21,7 +20,7 @@ public class ActivityUtils {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static void setFullScreen(Activity activity){
-//        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
@@ -71,19 +70,40 @@ public class ActivityUtils {
      * @param activity
      * @return
      */
-    public static View getDecorContentParentView(Activity activity){
-        int decor_content_parent_id = 0;
-        try {
-            Class<?> androidId = Class.forName(activity.getPackageName() + ".R$id");
-            Field decor_content_parent = androidId.getField("decor_content_parent");
-            decor_content_parent.setAccessible(true);
-            decor_content_parent_id = (int) decor_content_parent.get(null);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static View getContentRootView(Activity activity){
+//        int decor_content_parent_id = 0;
+//        try {
+//            String R_PackagePath = NotchConfig.R_PackagePath;
+//            if(TextUtils.isEmpty(NotchConfig.R_PackagePath)){
+//                R_PackagePath = activity.getPackageName();
+//            }
+//            Class<?> androidId = Class.forName(R_PackagePath + ".R$id");
+//            Field decor_content_parent = androidId.getField("decor_content_parent");
+//            decor_content_parent.setAccessible(true);
+//            decor_content_parent_id = (int) decor_content_parent.get(null);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            LogUtils.i("R file path is not correct!!!(R资源文件获取失败，可通过查看AndroidManifests文件中的package属性是否与applicationId一致！)");
+//        }
+//        if(decor_content_parent_id != 0){
+//            return activity.findViewById(decor_content_parent_id);
+//        }
+//        return null;
+
+        ViewGroup rootView = (ViewGroup) activity.getWindow().getDecorView().getRootView();
+        View contentRootView = null;
+        int childViewCount = rootView.getChildCount();
+        for (int index = 0; index < childViewCount; index++){
+            if(contentRootView == null){
+                contentRootView = rootView.getChildAt(index);
+                continue;
+            }
+            View indexChildView = rootView.getChildAt(index);
+            if(indexChildView.getHeight() > contentRootView.getHeight()){
+                contentRootView = indexChildView;
+            }
         }
-        if(decor_content_parent_id != 0){
-            return activity.findViewById(decor_content_parent_id);
-        }
-        return null;
+
+        return contentRootView;
     }
 }

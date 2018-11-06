@@ -43,7 +43,8 @@
         android:id="@+id/btn_notch_translucent_unuse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="沉浸模式不适配" />
+        android:text="沉浸模式不适配"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btn_notch_fullscreen_unuse"

@@ -51,11 +51,11 @@ public class NotchFit {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
                 if(notchProperty.isNotchEnable()){
-                    ViewGroup decorContentParentView = (ViewGroup)ActivityUtils.getDecorContentParentView(activity);
-                    if(decorContentParentView != null) {
-                        int[] decorContentParentViewLocation = new int[2];
-                        decorContentParentView.getLocationOnScreen(decorContentParentViewLocation);
-                        if (decorContentParentViewLocation[1] >= notchProperty.getNotchHeight()) {//判断设备是否自动完成了适配
+                    View rootView = activity.getWindow().getDecorView().getRootView();
+                    if(rootView != null) {
+                        int[] rootViewLocation = new int[2];
+                        rootView.getLocationOnScreen(rootViewLocation);
+                        if (rootViewLocation[1] >= notchProperty.getNotchHeight()) {//通过Y坐标判断设备是否自动完成了适配
                             notchProperty.setNotchEnable(false);
                             notchProperty.setNotchWidth(0);
                             notchProperty.setNotchHeight(0);
@@ -71,8 +71,8 @@ public class NotchFit {
     }
 
     /**
-     * 对有UI布局延伸到刘海区域的活动窗口，可使窗口布局不使用刘海区域，用黑条填充刘海区域
-     * @param activity 需要刘海适配的活动窗口
+     * 对有UI布局延伸到刘海区域的全屏活动窗口，可使窗口布局不使用刘海区域，用黑条填充刘海区域
+     * @param activity 需要刘海适配的全屏活动窗口
      */
     public static void fitUnUse(final Activity activity){
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -82,16 +82,17 @@ public class NotchFit {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
                 if(notchProperty.isNotchEnable() && notchProperty.getNotchHeight() != 0){
+                    //不是全屏不适配
+                    if(!ActivityUtils.isFullScreen(activity)) return;
                     //已经适配过的无需再适配
                     if(activity.findViewById(R.id.custom_notch_view) != null) return;
 
-                    ViewGroup decorContentParentView = (ViewGroup)ActivityUtils.getDecorContentParentView(activity);
-                    if(decorContentParentView == null) return;
-                    ((ViewGroup.MarginLayoutParams)decorContentParentView.getLayoutParams()).topMargin = notchProperty.getNotchHeight();
+                    View contentRootView = ActivityUtils.getContentRootView(activity);
+                    ((ViewGroup.MarginLayoutParams)contentRootView.getLayoutParams()).topMargin += notchProperty.getNotchHeight();
 
-                    ViewGroup windowRootView = (ViewGroup) decorContentParentView.getParent();
+                    ViewGroup windowRootView = (ViewGroup) activity.getWindow().getDecorView().getRootView();
                     if(windowRootView != null && windowRootView instanceof FrameLayout) {
-                        View notchView = new View(decorContentParentView.getContext());
+                        View notchView = new View(activity);
                         notchView.setId(R.id.custom_notch_view);
                         notchView.setBackgroundColor(Color.BLACK);
                         FrameLayout.LayoutParams notchViewLayoutParams =
