@@ -71,6 +71,24 @@ public class NotchFit {
     }
 
     /**
+     * 刘海参数回调获取，可在回调接口中进行UI的刘海适配
+     * @param activity 需要刘海UI适配的活动窗口
+     * @param onNotchCallBack 刘海参数回调接口
+     */
+    public static void fit(Activity activity, OnNotchCallBack onNotchCallBack){
+        fit(activity,NotchScreenType.CUSTOM, onNotchCallBack);
+    }
+
+    /**
+     * 对可以通过app控制刘海可使用权限的设备（如小米、华为），控制app是否开启使用刘海区域。
+     * @param activity
+     * @param applyEnable 是否启用刘海区域
+     */
+    public static void applyNotch(Activity activity, boolean applyEnable){
+        NotchFactory.getInstance().getNotch().applyNotch(activity, applyEnable);
+    }
+
+    /**
      * 对有UI布局延伸到刘海区域的全屏活动窗口，可使窗口布局不使用刘海区域，用黑条填充刘海区域
      * @param activity 需要刘海适配的全屏活动窗口
      */
@@ -87,8 +105,10 @@ public class NotchFit {
                     //已经适配过的无需再适配
                     if(activity.findViewById(R.id.custom_notch_view) != null) return;
 
+                    int fitSize = notchProperty.getNotchHeight();
+
                     View contentRootView = ActivityUtils.getContentRootView(activity);
-                    ((ViewGroup.MarginLayoutParams)contentRootView.getLayoutParams()).topMargin += notchProperty.getNotchHeight();
+                    ((ViewGroup.MarginLayoutParams)contentRootView.getLayoutParams()).topMargin += fitSize;
 
                     ViewGroup windowRootView = (ViewGroup) activity.getWindow().getDecorView().getRootView();
                     if(windowRootView != null && windowRootView instanceof FrameLayout) {
@@ -96,7 +116,7 @@ public class NotchFit {
                         notchView.setId(R.id.custom_notch_view);
                         notchView.setBackgroundColor(Color.BLACK);
                         FrameLayout.LayoutParams notchViewLayoutParams =
-                                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, notchProperty.getNotchHeight());
+                                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, fitSize);
                         notchViewLayoutParams.gravity = Gravity.TOP;
                         windowRootView.addView(notchView, notchViewLayoutParams);
                         LogUtils.i(notchProperty.getManufacturer() + " notch fit finish by app (程序完成适配) ");

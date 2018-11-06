@@ -87,40 +87,44 @@ public abstract class AbstractNotch implements INotch{
         activity.getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
-                int[] notchSize = null;
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
-                    notchProperty.setNotchEnable(isNotchEnable_P(activity));
-                    if(notchProperty.isNotchEnable()) {
-                        notchSize = getNotchSize_P(activity);
-                    }
-                }
-                else {
-                    notchProperty.setNotchEnable(isNotchEnable_O(activity));
-                    LogUtils.i(notchProperty.getManufacturer()+" O notch enable: "+notchProperty.isNotchEnable());
-                    if(notchProperty.isNotchEnable()) {
-                        notchSize = getNotchSize_O(activity);
-                        if(notchSize != null && notchSize.length > 1) {
-                            LogUtils.i(notchProperty.getManufacturer() + " O notch size: " + "width> " + notchSize[0] + " height> " + notchSize[1]);
-                        }
-                    }
-                }
-
-                if(notchProperty.isNotchEnable()){
-                    if(notchSize == null || notchSize.length != 2) {
-                        throw new RuntimeException(notchProperty.getManufacturer()+" notch args get error");
-                    }
-                    notchProperty.setNotchWidth(notchSize[0]);
-                    notchProperty.setNotchHeight(notchSize[1]);
-                }
-
-                if(onNotchCallBack != null){
-                    onNotchCallBack.onNotchReady(notchProperty);
-                }
-                if(NotchConfig.NotchPropertyListener != null){
-                    NotchConfig.NotchPropertyListener.onNotchProperty(notchProperty);
-                }
+                obtainNotchArgs(activity, onNotchCallBack);
             }
         });
+    }
+
+    private void obtainNotchArgs(Activity activity, OnNotchCallBack onNotchCallBack) {
+        int[] notchSize = null;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+            notchProperty.setNotchEnable(isNotchEnable_P(activity));
+            if(notchProperty.isNotchEnable()) {
+                notchSize = getNotchSize_P(activity);
+            }
+        }
+        else {
+            notchProperty.setNotchEnable(isNotchEnable_O(activity));
+            LogUtils.i(notchProperty.getManufacturer()+" O notch enable: "+notchProperty.isNotchEnable());
+            if(notchProperty.isNotchEnable()) {
+                notchSize = getNotchSize_O(activity);
+                if(notchSize != null && notchSize.length > 1) {
+                    LogUtils.i(notchProperty.getManufacturer() + " O notch size: " + "width> " + notchSize[0] + " height> " + notchSize[1]);
+                }
+            }
+        }
+
+        if(notchProperty.isNotchEnable()){
+            if(notchSize == null || notchSize.length != 2) {
+                throw new RuntimeException(notchProperty.getManufacturer()+" notch args get error");
+            }
+            notchProperty.setNotchWidth(notchSize[0]);
+            notchProperty.setNotchHeight(notchSize[1]);
+        }
+
+        if(onNotchCallBack != null){
+            onNotchCallBack.onNotchReady(notchProperty);
+        }
+        if(NotchConfig.NotchPropertyListener != null){
+            NotchConfig.NotchPropertyListener.onNotchProperty(notchProperty);
+        }
     }
 
     /**
