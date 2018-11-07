@@ -47,7 +47,7 @@
         
               
    3.黑条填充
-   应用场景：不想对app中的具体UI做针对性刘海适配，可通过此接口一键黑条填充适配！！！
+   <p>应用场景：不想对app中的具体全屏UI做针对性刘海适配，可通过此接口一键黑条填充适配！！！
    
    ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_black.jpg)
      
