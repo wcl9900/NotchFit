@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.wcl.notchfit.args.NotchProperty;
 import com.wcl.notchfit.config.NotchConfig;
@@ -31,16 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.btn_notch_translucent_unuse).setOnClickListener(this);
         findViewById(R.id.btn_notch_fullscreen_unuse).setOnClickListener(this);
-
-        getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                int[] location = new int[2];
-                getWindow().getDecorView().getRootView().getLocationOnScreen(location);
-                LogUtils.i("RootView Y >>>>>>>: "+location[1]);
-                Toast.makeText(MainActivity.this, "Y: "+location[1], Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     @Override

@@ -49,9 +49,4 @@ public class VivoNotch extends AbstractNotch {
         };
         return notchSize;
     }
-
-    @Override
-    protected boolean isNotchEnable_P(Activity activity) {
-        return isHardwareNotchEnable(activity) && super.isNotchEnable_P(activity);
-    }
 }
