@@ -15,6 +15,11 @@ import java.lang.reflect.Method;
 
 public class VivoNotch extends AbstractNotch {
 
+    @Override
+    protected boolean isNotchEnable_O(Activity activity) {
+        return isHardwareNotchEnable(activity);
+    }
+
     private final int VIVO_NOTCH = 0x00000020;//是否有刘海
     private final int VIVO_FILLET = 0x00000008;//是否有圆角
     protected boolean isHardwareNotchEnable(Activity activity) {
@@ -34,11 +39,6 @@ public class VivoNotch extends AbstractNotch {
             LogUtils.i("Vivo hardware enable: "+notchEnable);
             return notchEnable;
         }
-    }
-
-    @Override
-    protected boolean isNotchEnable_O(Activity activity) {
-        return isHardwareNotchEnable(activity);
     }
 
     @Override
