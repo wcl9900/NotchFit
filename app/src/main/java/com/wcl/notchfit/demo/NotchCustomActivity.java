@@ -6,7 +6,6 @@ import android.view.WindowManager;
 
 import com.wcl.notchfit.NotchFit;
 import com.wcl.notchfit.args.NotchProperty;
-import com.wcl.notchfit.args.NotchScreenType;
 import com.wcl.notchfit.core.OnNotchCallBack;
 
 public class NotchCustomActivity extends NotchBaseActivity {
@@ -19,7 +18,7 @@ public class NotchCustomActivity extends NotchBaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         final ViewGroup listParent = findViewById(R.id.ll_parent);
-        NotchFit.fit(this, NotchScreenType.CUSTOM, new OnNotchCallBack() {
+        NotchFit.fit(this, new OnNotchCallBack() {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
                 if(notchProperty.isNotchEnable()){
