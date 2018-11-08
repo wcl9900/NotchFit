@@ -51,23 +51,31 @@ public class NotchFit {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
                 if(notchProperty.isNotchEnable()){
-                    View rootView = activity.getWindow().getDecorView().getRootView();
-                    if(rootView != null) {
-                        int[] rootViewLocation = new int[2];
-                        rootView.getLocationOnScreen(rootViewLocation);
-                        if (rootViewLocation[1] >= notchProperty.getNotchHeight()) {//通过Y坐标判断设备是否自动完成了适配
-                            notchProperty.setNotchEnable(false);
-                            notchProperty.setNotchWidth(0);
-                            notchProperty.setNotchHeight(0);
-                            LogUtils.i(notchProperty.getManufacturer() + " fit notch finish by system(系统自动完成刘海适配)");
-                        }
-                    }
+                    filterSystemFitAuto(activity, notchProperty);
                 }
                 if(onNotchCallBack != null){
                     onNotchCallBack.onNotchReady(notchProperty);
                 }
             }
         });
+    }
+    /**
+     * 判断系统是否已完成刘海自动适配，过滤重设刘海参数
+     * @param activity
+     * @param notchProperty
+     */
+    private static void filterSystemFitAuto(Activity activity, NotchProperty notchProperty){
+        View rootView = activity.getWindow().getDecorView().getRootView();
+        if(rootView != null) {
+            int[] rootViewLocation = new int[2];
+            rootView.getLocationOnScreen(rootViewLocation);
+            if (rootViewLocation[1] >= notchProperty.getNotchHeight()) {//通过Y坐标判断设备是否自动完成了适配
+                notchProperty.setNotchEnable(false);
+                notchProperty.setNotchWidth(0);
+                notchProperty.setNotchHeight(0);
+                LogUtils.i(notchProperty.getManufacturer() + " fit notch finish by system(系统自动完成刘海适配)");
+            }
+        }
     }
 
     /**

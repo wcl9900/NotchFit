@@ -1,5 +1,6 @@
 package com.wcl.notchfit.manufacturer;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 import android.provider.Settings;
@@ -24,6 +25,8 @@ public class XiaomiNotch extends AbstractNotch {
 
     @Override
     protected void applyNotch_O(Activity activity) {
+        if(!isSettingNotchEnable(activity)) return;
+
         try {
             Method method = Window.class.getMethod("addExtraFlags",
                     int.class);
@@ -46,55 +49,7 @@ public class XiaomiNotch extends AbstractNotch {
 
     @Override
     protected boolean isNotchEnable_O(Activity activity) {
-        return isHardwareNotchEnable(activity);
-    }
-
-    protected boolean isHardwareNotchEnable(Activity activity) {
-        try {
-            Class<?> aClass = Class.forName("android.os.SystemProperties");
-            Method getInt = aClass.getMethod("getInt", String.class, int.class);
-            int invoke = (int) getInt.invoke(null, "ro.miui.notch", 0);
-            if(invoke == 1){
-                LogUtils.i("xiaomi hardware enable: true");
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        LogUtils.i("xiaomi hardware enable: false");
-        return false;
-    }
-
-    /**
-     * 系统设置中是否开启了刘海区域使用
-     * @param activity
-     * @return
-     */
-    private boolean isSettingNotchEnable(Activity activity) {
-        //系统设置是否支持刘海屏使用。0:开启，1:关闭
-        boolean isNotchSettingOpen = Settings.Global.getInt(activity.getContentResolver(), "force_black", 0) == 0;
-        return isNotchSettingOpen;
-    }
-
-    /**
-     * app中是否开启了刘海区域使用
-     * @param activity
-     * @return
-     */
-    private boolean isSoftAppNotchEnable(Activity activity) {
-        try {
-            Field extraFlagsField = activity.getWindow().getAttributes().getClass().getField("extraFlags");
-            extraFlagsField.setAccessible(true);
-            int extraFlags = (int) extraFlagsField.get(activity.getWindow().getAttributes());
-            if((extraFlags & notchFlag) == notchFlag){
-                return true;
-            }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return isHardwareNotchEnable(activity) && isSettingNotchEnable(activity) && isSoftAppNotchEnable(activity);
     }
 
     @Override
@@ -132,5 +87,65 @@ public class XiaomiNotch extends AbstractNotch {
             notchSize[1] = 89;
         }
         return notchSize;
+    }
+
+    @Override
+    protected void applyNotch_P(Activity activity) {
+        if(!isSettingNotchEnable(activity)) return;
+        super.applyNotch_P(activity);
+    }
+
+    @Override
+    protected boolean isNotchEnable_P(Activity activity) {
+        return super.isNotchEnable_P(activity) && isSettingNotchEnable(activity);
+    }
+
+    protected boolean isHardwareNotchEnable(Activity activity) {
+        try {
+            Class<?> aClass = Class.forName("android.os.SystemProperties");
+            Method getInt = aClass.getMethod("getInt", String.class, int.class);
+            int invoke = (int) getInt.invoke(null, "ro.miui.notch", 0);
+            if(invoke == 1){
+                LogUtils.i("xiaomi hardware enable: true");
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LogUtils.i("xiaomi hardware enable: false");
+        return false;
+    }
+
+    /**
+     * 系统设置中是否开启了刘海区域使用
+     * @param activity
+     * @return
+     */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private boolean isSettingNotchEnable(Activity activity) {
+        //系统设置是否支持刘海屏使用。0:开启，1:关闭
+        boolean isNotchSettingOpen = Settings.Global.getInt(activity.getContentResolver(), "force_black", 0) == 0;
+        return isNotchSettingOpen;
+    }
+
+    /**
+     * app中是否开启了刘海区域使用
+     * @param activity
+     * @return
+     */
+    private boolean isSoftAppNotchEnable(Activity activity) {
+        try {
+            Field extraFlagsField = activity.getWindow().getAttributes().getClass().getField("extraFlags");
+            extraFlagsField.setAccessible(true);
+            int extraFlags = (int) extraFlagsField.get(activity.getWindow().getAttributes());
+            if((extraFlags & notchFlag) == notchFlag){
+                return true;
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

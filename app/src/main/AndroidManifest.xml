@@ -41,7 +41,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NotchFullScreenActivity"
-            android:screenOrientation="sensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NotchTranslucentActivity"
             android:screenOrientation="portrait" />

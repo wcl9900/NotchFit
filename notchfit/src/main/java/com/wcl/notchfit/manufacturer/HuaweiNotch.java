@@ -25,6 +25,8 @@ public class HuaweiNotch extends AbstractNotch {
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected void applyNotch_O(Activity activity) {
+        if(!isSettingNotchEnable(activity)) return;
+
         Window window = activity.getWindow();
         WindowManager.LayoutParams layoutParams = window.getAttributes();
         try {
@@ -62,8 +64,39 @@ public class HuaweiNotch extends AbstractNotch {
 
     @Override
     protected boolean isNotchEnable_O(Activity activity) {
-        return isHardwareNotchEnable(activity);
+        return isHardwareNotchEnable(activity) && isSettingNotchEnable(activity) && isSoftAppNotchEnable(activity);
     }
+
+    @Override
+    protected int[] getNotchSize_O(Activity activity) {
+        int[] notchSize = new int[]{0, 0};
+        try {
+            ClassLoader cl = activity.getClassLoader();
+            Class HwNotchSizeUtil = cl.loadClass("com.huawei.android.util.HwNotchSizeUtil");
+            Method get = HwNotchSizeUtil.getMethod("getNotchSize");
+            notchSize = (int[]) get.invoke(HwNotchSizeUtil);
+        } catch (ClassNotFoundException e) {
+            LogUtils.e( "getNotchSizeAtHuawei ClassNotFoundException");
+        } catch (NoSuchMethodException e) {
+            LogUtils.e("getNotchSizeAtHuawei NoSuchMethodException");
+        } catch (Exception e) {
+            LogUtils.e("getNotchSizeAtHuawei Exception");
+        } finally {
+            return notchSize;
+        }
+    }
+
+    @Override
+    protected void applyNotch_P(Activity activity) {
+        if(!isSettingNotchEnable(activity)) return;
+        super.applyNotch_P(activity);
+    }
+
+    @Override
+    protected boolean isNotchEnable_P(Activity activity) {
+        return super.isNotchEnable_P(activity) && isSettingNotchEnable(activity);
+    }
+
     /**
      * 设备硬件是否是刘海屏。若设备无法获取属性值时，默认返回true，由其它条件做判断
      * @param activity
@@ -127,22 +160,4 @@ public class HuaweiNotch extends AbstractNotch {
         return false;
     }
 
-    @Override
-    protected int[] getNotchSize_O(Activity activity) {
-        int[] notchSize = new int[]{0, 0};
-        try {
-            ClassLoader cl = activity.getClassLoader();
-            Class HwNotchSizeUtil = cl.loadClass("com.huawei.android.util.HwNotchSizeUtil");
-            Method get = HwNotchSizeUtil.getMethod("getNotchSize");
-            notchSize = (int[]) get.invoke(HwNotchSizeUtil);
-        } catch (ClassNotFoundException e) {
-            LogUtils.e( "getNotchSizeAtHuawei ClassNotFoundException");
-        } catch (NoSuchMethodException e) {
-            LogUtils.e("getNotchSizeAtHuawei NoSuchMethodException");
-        } catch (Exception e) {
-            LogUtils.e("getNotchSizeAtHuawei Exception");
-        } finally {
-            return notchSize;
-        }
-    }
 }
