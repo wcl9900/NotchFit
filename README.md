@@ -11,7 +11,7 @@
     repositories {
         jcenter()
     }
-    compile 'com.wcl.notchfit:notchfit:1.3'
+    compile 'com.wcl.notchfit:notchfit:1.4'
     
 # 使用方式
 

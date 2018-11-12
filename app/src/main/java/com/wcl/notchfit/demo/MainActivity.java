@@ -9,6 +9,7 @@ import com.wcl.notchfit.args.NotchProperty;
 import com.wcl.notchfit.config.NotchConfig;
 import com.wcl.notchfit.config.OnNotchPropertyListener;
 import com.wcl.notchfit.utils.LogUtils;
+import com.wcl.notchfit.utils.SizeUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.btn_notch_translucent_unuse).setOnClickListener(this);
         findViewById(R.id.btn_notch_fullscreen_unuse).setOnClickListener(this);
+        LogUtils.i("StatusBarHeight: "+ SizeUtils.getStatusBarHeight(this));
     }
 
     @Override

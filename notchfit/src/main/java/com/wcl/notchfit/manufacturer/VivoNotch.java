@@ -45,7 +45,7 @@ public class VivoNotch extends AbstractNotch {
     protected int[] getNotchSize_O(Activity activity) {
         int[] notchSize = new int[]{
                 SizeUtils.dp2px(activity,100), //刘海宽度
-                SizeUtils.dp2px(activity, 27) //刘海高度（精确高度）
+                SizeUtils.dp2px(activity, 27) //刘海高度
         };
         return notchSize;
     }
