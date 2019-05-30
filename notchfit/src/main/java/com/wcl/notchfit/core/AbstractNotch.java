@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Rect;
 import android.os.Build;
 import android.view.DisplayCutout;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 
 import com.wcl.notchfit.args.NotchProperty;
@@ -148,7 +149,11 @@ public abstract class AbstractNotch implements INotch{
      */
     @TargetApi(Build.VERSION_CODES.P)
     protected boolean isNotchEnable_P(Activity activity){
-        DisplayCutout displayCutout = activity.getWindow().getDecorView().getRootWindowInsets().getDisplayCutout();
+        WindowInsets rootWindowInsets = activity.getWindow().getDecorView().getRootWindowInsets();
+        if(rootWindowInsets == null){
+            return false;
+        }
+        DisplayCutout displayCutout = rootWindowInsets.getDisplayCutout();
         if(displayCutout == null || displayCutout.getBoundingRects() == null || displayCutout.getBoundingRects().size() == 0){
             LogUtils.i(notchProperty.getManufacturer()+" P notch enable: false");
             return false;
