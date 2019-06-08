@@ -11,7 +11,7 @@
     repositories {
         jcenter()
     }
-    compile 'com.wcl.notchfit:notchfit:1.4'
+    compile 'com.wcl.notchfit:notchfit:1.4.2'
     
 # 使用方式
 
@@ -53,5 +53,8 @@
    ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_black.jpg)
      
      NotchFit.fitUnUse(this);
-     
+
+   4.判断设备是否支持刘海
+     boolean hasNotch = NotchFit.hasNotch(activity);
+
     更多使用方式请查看demo
