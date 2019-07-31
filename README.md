@@ -54,7 +54,4 @@
      
      NotchFit.fitUnUse(this);
 
-   4.判断设备是否支持刘海
-     boolean hasNotch = NotchFit.hasNotch(activity);
-
     更多使用方式请查看demo
