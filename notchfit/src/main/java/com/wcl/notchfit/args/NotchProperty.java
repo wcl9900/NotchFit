@@ -8,6 +8,7 @@ package com.wcl.notchfit.args;
 public class NotchProperty {
     private String manufacturer; //手机厂商
     private boolean notchEnable; //是否显示刘海屏
+    private NotchPosition notchPosition; //刘海所在屏幕位置
     private int notchWidth;           //刘海屏宽度px
     private int notchHeight;          //刘海屏高度px
 
@@ -59,9 +60,27 @@ public class NotchProperty {
         this.notchHeight = notchHeight;
     }
 
+    /**
+     * 获取刘海区域所在屏幕位置（依赖横竖屏方向）
+     * @return
+     * @NotchPosition
+     */
+    public NotchPosition getNotchPosition() {
+        return notchPosition;
+    }
+
+    /**
+     * 设定刘海区域所在屏幕位置
+     * @param notchPosition
+     */
+    public void setNotchPosition(NotchPosition notchPosition) {
+        this.notchPosition = notchPosition;
+    }
+
     @Override
     public String toString() {
         return "notchEnable: "+isNotchEnable()+" "
+                +"notchPosition: "+getNotchPosition() + " "
                 +"notchWidth: "+getNotchWidth() + " "
                 +"notchHeight: " + getNotchHeight() + " "
                 +"manufacturer: "+ getManufacturer();

@@ -20,15 +20,10 @@ public class NotchCustomActivity extends NotchBaseActivity {
         //支持刘海使用
         NotchFit.applyNotch(this, true);
 
-        final ViewGroup listParent = findViewById(R.id.ll_parent);
         NotchFit.fit(this, new OnNotchCallBack() {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
-                if(notchProperty.isNotchEnable()){
-                    ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) listParent.getLayoutParams();
-                    marginLayoutParams.topMargin = notchProperty.getNotchHeight();
-                    listParent.requestLayout();
-                }
+                NotchCustomActivity.this.fixLayout(notchProperty, false);
             }
         });
     }

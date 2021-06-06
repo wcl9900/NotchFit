@@ -16,15 +16,10 @@ public class NotchFullScreenActivity extends NotchBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ViewGroup listParent = findViewById(R.id.ll_parent);
         NotchFit.fit(this, NotchScreenType.FULL_SCREEN, new OnNotchCallBack() {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
-                if(notchProperty.isNotchEnable()){
-                    ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) listParent.getLayoutParams();
-                    marginLayoutParams.topMargin = notchProperty.getNotchHeight();
-                    listParent.requestLayout();
-                }
+                NotchFullScreenActivity.this.fixLayout(notchProperty, true);
             }
         });
     }

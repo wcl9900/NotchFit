@@ -1,17 +1,21 @@
 package com.wcl.notchfit;
 
 import android.app.Activity;
+import android.app.Application;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.wcl.notchfit.args.NotchPosition;
 import com.wcl.notchfit.args.NotchProperty;
 import com.wcl.notchfit.args.NotchScreenType;
 import com.wcl.notchfit.core.NotchFactory;
 import com.wcl.notchfit.core.OnNotchCallBack;
+import com.wcl.notchfit.position.NotchPositionWrapper;
 import com.wcl.notchfit.utils.ActivityUtils;
 import com.wcl.notchfit.utils.LogUtils;
 
@@ -47,15 +51,22 @@ public class NotchFit {
             ActivityUtils.setTranslucent(activity);
         }
 
-        NotchFactory.getInstance().getNotch().obtainNotch(activity, new OnNotchCallBack() {
+        NotchPositionWrapper notchPositionWrapper = new NotchPositionWrapper();
+        notchPositionWrapper.onPosition(activity, new NotchPositionWrapper.OnPositionListener() {
             @Override
-            public void onNotchReady(NotchProperty notchProperty) {
-                if(notchProperty.isNotchEnable()){
-                    filterSystemFitAuto(activity, notchProperty);
-                }
-                if(onNotchCallBack != null){
-                    onNotchCallBack.onNotchReady(notchProperty);
-                }
+            public void onPosition(final NotchPosition notchPosition) {
+                NotchFactory.getInstance().getNotch().obtainNotch(activity, new OnNotchCallBack() {
+                    @Override
+                    public void onNotchReady(NotchProperty notchProperty) {
+                        if(notchProperty.isNotchEnable()){
+                            notchProperty.setNotchPosition(notchPosition);
+                            filterSystemFitAuto(activity, notchProperty);
+                        }
+                        if(onNotchCallBack != null){
+                            onNotchCallBack.onNotchReady(notchProperty);
+                        }
+                    }
+                });
             }
         });
     }

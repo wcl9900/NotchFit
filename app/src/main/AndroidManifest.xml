@@ -28,8 +28,7 @@
         <!-- android:value="portrait|landscape" /> -->
 
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,19 +37,19 @@
         </activity>
         <activity
             android:name=".UnUseNotchFullScreenActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensor" />
         <activity
             android:name=".NotchFullScreenActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensor" />
         <activity
             android:name=".NotchTranslucentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensor" />
         <activity
             android:name=".UnUseNotchTranslucentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensor" />
         <activity
             android:name=".NotchCustomActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="sensor" />
     </application>
 
 </manifest>

@@ -28,22 +28,59 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
+apply plugin: 'maven'
+apply plugin: 'signing'
 
-ext{
-    versionName = "1.4"//版本号
-    siteUrl = 'https://github.com/wcl9900/NotchFit'    // project homepage
-    gitUrl = 'https://github.com/wcl9900/NotchFit.git' // project git
-
-    groupId = "com.wcl.notchfit" //组名称
-    artifactId = "notchfit"
-
-    repository = "maven"//仓库名称
-    userOrgName = "wangchunlong"//组织名称
-
-    //库描述介绍
-    descRep = "智能刘海屏适配"
-    //库版本信息描述
-    descVersion = ""
+signing {
+    sign configurations.archives
 }
-//apply from: 'https://raw.githubusercontent.com/wcl9900/jcenter/master/publishJCenter.gradle'
-apply from: 'https://gitee.com/wcl9900/jcenter/raw/master/publishJCenter.gradle'//码云托管
+
+group = "io.github.notchfit"
+archivesBaseName = "NotchFit"
+version = "1.5"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment {
+                MavenDeployment deployment -> signing.signPom(deployment)
+            }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'NotchFit'
+                packaging 'aar'
+                description '智能刘海屏适配 '
+                url 'https://github.com/wcl9900/NotchFit'
+
+                scm {
+                    connection 'scm:git:https://github.com/wcl9900/NotchFit.git'
+                    developerConnection 'scm:git:https://github.com/wcl9900/NotchFit.git'
+                    url 'https://github.com/wcl9900/NotchFit.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'wcl9900'
+                        name 'wangchunlong'
+                        email '990017809.com'
+                    }
+                }
+            }
+        }
+    }
+}

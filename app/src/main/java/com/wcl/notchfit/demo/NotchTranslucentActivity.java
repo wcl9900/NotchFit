@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.wcl.notchfit.NotchFit;
+import com.wcl.notchfit.args.NotchPosition;
 import com.wcl.notchfit.args.NotchProperty;
 import com.wcl.notchfit.args.NotchScreenType;
 import com.wcl.notchfit.core.OnNotchCallBack;
+import com.wcl.notchfit.utils.LogUtils;
 import com.wcl.notchfit.utils.SizeUtils;
 
 /**
@@ -22,17 +24,7 @@ public class NotchTranslucentActivity extends NotchBaseActivity {
         NotchFit.fit(this, NotchScreenType.TRANSLUCENT, new OnNotchCallBack() {
             @Override
             public void onNotchReady(NotchProperty notchProperty) {
-                int fitSize;
-                if(notchProperty.isNotchEnable()){
-                    fitSize = notchProperty.getNotchHeight();
-                }
-                else {
-                    fitSize = SizeUtils.getStatusBarHeight(NotchTranslucentActivity.this);
-                }
-
-                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) listParent.getLayoutParams();
-                marginLayoutParams.topMargin = fitSize;
-                listParent.requestLayout();
+                NotchTranslucentActivity.this.fixLayout(notchProperty, false);
             }
         });
     }
