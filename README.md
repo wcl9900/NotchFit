@@ -20,7 +20,7 @@
   
     Gradle
     repositories {
-       maven()
+       mavenCentral()
     }
     compile 'io.github.wcl9900:NotchFit:1.5'
       
