@@ -12,7 +12,26 @@
         jcenter()
     }
     compile 'com.wcl.notchfit:notchfit:1.4.2'
+# 特点
+   1.支持多种刘海区域参数获取
+   
+        private String manufacturer; //手机厂商
+        private boolean notchEnable; //是否显示刘海屏
+        private NotchPosition notchPosition; //刘海所在屏幕位置（上、左、右）
+        private int notchWidth;           //刘海屏宽度px
+        private int notchHeight;          //刘海屏高度px
     
+   2.刘海区域位置检测适配
+   
+   1).顶部适配
+     ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_top.jpg)
+
+   2).左部适配
+     ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_left.jpg)
+
+   3).右部适配
+     ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_right.jpg)
+   
 # 使用方式
 
    1.沉浸适配
@@ -53,5 +72,5 @@
    ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_black.jpg)
      
      NotchFit.fitUnUse(this);
-
+     
     更多使用方式请查看demo
