@@ -28,4 +28,5 @@ dependencies {
     implementation project(':notchfit')
 //    implementation 'io.github.wcl9900:NotchFit:1.5'
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
+
 }

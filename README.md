@@ -10,7 +10,6 @@
 
   旧版本：(1.4.2及以前)
   
-    Gradle
     repositories {
         jcenter()
     }
@@ -18,9 +17,8 @@
     
   新版本：（1.5及以后）
   
-    Gradle
     repositories {
-       mavenCentral()
+       jcenter()
     }
     compile 'io.github.wcl9900:NotchFit:1.5'
       
