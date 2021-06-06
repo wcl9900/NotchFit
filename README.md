@@ -23,8 +23,8 @@
     
    2.刘海区域位置检测适配
    
-   1).顶部适配 
-   
+   1).顶部适配
+    
    ![name](https://raw.githubusercontent.com/wcl9900/NotchFit/master/image_notch_fit_top.jpg)
 
    2).左部适配
