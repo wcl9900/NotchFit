@@ -26,5 +26,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':notchfit')
+//    implementation 'io.github.wcl9900:NotchFit:1.5'
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
 }

@@ -7,11 +7,24 @@
  处理了以上所有的问题，并智能判断刘海区域的使用方式和刘海参数的获取，给开发者更好的刘海适配体验！
     
 # 引入方式
+
+  旧版本：(1.4.2及以前)
+  
     Gradle
     repositories {
         jcenter()
     }
     compile 'com.wcl.notchfit:notchfit:1.4.2'
+    
+  新版本：（1.5及以后）
+  
+    Gradle
+    repositories {
+       maven()
+    }
+    compile 'io.github.wcl9900:NotchFit:1.5'
+      
+    
 # 特点
    1.支持多种刘海区域参数获取
    
