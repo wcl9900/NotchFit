@@ -35,7 +35,7 @@ signing {
     sign configurations.archives
 }
 
-group = "io.github.notchfit"
+group = "io.github.wcl9900"
 archivesBaseName = "NotchFit"
 version = "1.5"
 
